@@ -1,0 +1,12 @@
+{
+  "name": "chat-app-paper",
+  "private": true,
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "dependencies": {
+    "webcomponentsjs": "Polymer/webcomponentsjs#^0.7.12",
+    "polymer": "Polymer/polymer#^1.1.2",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.0.0",
+  }
+}
