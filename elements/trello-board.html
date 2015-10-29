@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 
 <link rel="import" href="trello-cards.html">
 
@@ -19,11 +20,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       font-family: 'Muli', 'Helvetica Neue', helvetica, arial;
       display: block;
     }
+    .input_container {
+    	width: 40%;
+    	margin-left: 30px;
+    	margin-top: 20px;
+    }
+    .blueText {
+    	color: blue;
+    }
   </style>
 
   <template>
+	<div class="input_container">
+	<span>Bem vindo ao</span><span class="blueText"> RelaTrello</span>
+  		<paper-input label="MeuQuadroURL.json" value="{{quadroURL}}"></paper-input>
+	</div>
 
-    <iron-ajax url="trello_2.json" last-response="{{threads}}" auto></iron-ajax>
+    <iron-ajax url="{{quadroURL}}" last-response="{{threads}}" auto></iron-ajax>
 
     <h1 class="centered">{{threads.name}}</h1>
 
@@ -43,6 +56,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'trello-board',
 
       properties: {
+
+      	quadroURL: {
+          type: String,
+          notify: true
+        }
 
       },
 
