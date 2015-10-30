@@ -1,0 +1,106 @@
+<!--
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+ <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+ <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+ <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+
+<link rel="import" href="trello-cards.html">
+
+<dom-module id="trello-board">
+
+  <style>
+    :host {
+      font-family: 'Muli', 'Helvetica Neue', helvetica, arial;
+      display: block;
+    }
+    .input_container {
+    	width: 40%;
+    	margin-left: 30px;
+    	margin-top: 20px;
+    }
+    .blueText {
+    	color: blue;
+    }
+    .size26 {
+      font-size: 26px;
+    }
+    .size19 {
+      font-size: 19px;
+    }
+    .bold {
+      font-weight: bold;
+    }
+  </style>
+
+  <template>
+  <paper-dialog autoFitOnAttach id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+    <div sizingTarget>
+    <div class="centered size26"><span>Bem-vindo ao</span><span class="blueText"> RelaTrello</span></div>
+    <br>
+    <paper-item><span class="size19">1. Certifique-se de que o seu quadro é: </span><span></span><span class="size19 bold"> PÚBLICO</span></paper-item>
+    <paper-item><div class="size19">2. Insira a URL do seu quadro e adicione .json ao final</div></paper-item>
+    <paper-item> <div class="size19">3. Relatório pronto??</div></paper-item>
+    <paper-item><div class="size19">4. Selecione tudo (ctrl+a), copie (ctrl+c), cole (ctrl+v) onde você desejar e seja feliz com seu relatório!</div></paper-item>
+    </div>
+  </paper-dialog> 
+
+	<div class="input_container">
+	<span class="blueText size26">RelaTrello</span>
+  		<paper-input label="MeuQuadroURL.json" value="{{quadroURL}}"></paper-input>
+	</div>
+
+    <iron-ajax url="{{quadroURL}}" last-response="{{threads}}" auto></iron-ajax>
+
+    <h1 class="centered">{{threads.name}}</h1>
+
+    <template is="dom-repeat" items="{{threads.lists}}" filter="{{_filter()}}">
+
+      <h1 class="centered">{{item.name}}</h1>
+
+      <trello-cards cards="{{threads.cards}}" checklists="{{threads.checklists}}" comments="{{threads.actions}}" list="{{item.id}}"></trello-cards>
+
+    </template>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'trello-board',
+
+      properties: {
+
+      	quadroURL: {
+          type: String,
+          notify: true
+        }
+
+      },
+
+      ready: function() {
+        var dialog = document.querySelector('#dialog');
+        dialog.open();
+      },
+
+      // Retorna somente as listas que não estão arquivadas
+       _filter: function() {  
+        return function(person) {
+          return (!person.closed);
+        };
+      }
+
+    });
+  </script>
+
+</dom-module>
