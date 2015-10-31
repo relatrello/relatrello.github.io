@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/neon-animation/animations/fade-out-animation.html">
 
 <script src="../js/jquery-1.7.1.min.js"></script>
-<script src="https://api.trello.com/1/client.js?key=[7041ac84049dc623f980b14c3d01c358]"></script>
+<script src="https://api.trello.com/1/client.js?key=[AppKey]"></script>
 
 <link rel="import" href="trello-cards.html">
 
@@ -27,6 +27,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     :host {
       font-family: 'Muli', 'Helvetica Neue', helvetica, arial;
       display: block;
+    }
+     paper-button {
+      background: #00CC66;
+      color: white;
     }
     .input_container {
     	width: 70%;
@@ -57,7 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-item> <div class="size19">3. Relatório pronto??</div></paper-item>
     <paper-item><div class="size19">4. Selecione tudo (ctrl+a), copie (ctrl+c), cole (ctrl+v) onde você desejar e seja feliz com seu relatório!</div></paper-item>
 
-    <paper-button on-tap="authenticateUser" class="centered">authenticate</paper-button>
+    <paper-button on-tap="authenticateUser">authenticate</paper-button>
     </div>
   </paper-dialog> 
 
