@@ -11,9 +11,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
  <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+ <link rel="import" href="../bower_components/paper-button/paper-button.html">
  <link rel="import" href="../bower_components/paper-item/paper-item.html">
  <link rel="import" href="../bower_components/neon-animation/animations/scale-up-animation.html">
 <link rel="import" href="../bower_components/neon-animation/animations/fade-out-animation.html">
+
+<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="https://api.trello.com/1/client.js?key=[7041ac84049dc623f980b14c3d01c358]"></script>
 
 <link rel="import" href="trello-cards.html">
 
@@ -52,6 +56,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-item><div class="size19">2. Insira a URL do seu quadro e adicione .json ao final</div></paper-item>
     <paper-item> <div class="size19">3. Relatório pronto??</div></paper-item>
     <paper-item><div class="size19">4. Selecione tudo (ctrl+a), copie (ctrl+c), cole (ctrl+v) onde você desejar e seja feliz com seu relatório!</div></paper-item>
+
+    <paper-button on-tap="authenticateUser" class="centered">authenticate</paper-button>
     </div>
   </paper-dialog> 
 
@@ -91,6 +97,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ready: function() {
         var dialog = document.querySelector('#dialog');
         dialog.open();
+      },
+
+      authenticateUser: function() {
+        var authenticationSuccess = function() { console.log("Successful authentication"); };
+        var authenticationFailure = function() { console.log("Failed authentication"); };
+
+          Trello.authorize({
+          type: "popup",
+          name: "Getting Started Application",
+          scope: {
+            read: true,
+            write: true },
+          expiration: "never",
+          authenticationSuccess,
+          authenticationFailure
+        });
       },
 
       // Retorna somente as listas que não estão arquivadas
