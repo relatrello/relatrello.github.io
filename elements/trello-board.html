@@ -73,7 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </paper-item>
     <paper-item>
 	    <div class="input_container">
-			<paper-input label="MeuQuadroURL.json" value="{{quadroURL}}"></paper-input>
+			<paper-input label="MeuQuadroURL.json" on-keyup="_handleInput" value="{{quadroURL}}"></paper-input>
 		</div>
     </paper-item>
     <paper-item> <div class="size19">3. Relatório pronto?? Copie e cole onde desejar</div></paper-item>
@@ -143,6 +143,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return function(person) {
           return (!person.closed);
         };
+      },
+
+        _handleInput: function(e) {
+        if (e.keyCode == 13) {
+          var dialog = document.querySelector('#dialog');
+          dialog.close();
+        }
       }
 
     });
