@@ -7,8 +7,8 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="trello-checklist.html">
 <link rel="import" href="trello-comments.html">
@@ -27,6 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .container {
       @apply(--layout-horizontal);
       @apply(--layout-wrap);
+      margin-bottom: 10px;
     }
     .red {
       padding: 2px;
@@ -139,7 +140,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class$="{{item.color}}">{{item.name}}</div>
           </template>
         </div>
-        <br>
       <div>
       <template is="dom-repeat" items="{{item.attachments}}">
         <img class="pic" src="{{item.url}}">
@@ -153,14 +153,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
 
       <trello-checklist checklists="{{checklists}}" card="{{item.id}}"></trello-checklist>
-      <br>
 
       <template is="dom-if" if="{{item.badges.comments}}">
        	<h4>Comentários</h4>
     	</template>
 
       <trello-comments comments="{{comments}}" card="{{item.id}}"></trello-comments>
-
+      <br>
     </template>
 
   </template>
