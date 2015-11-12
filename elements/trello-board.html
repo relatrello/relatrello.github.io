@@ -16,8 +16,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  <link rel="import" href="../bower_components/neon-animation/animations/scale-up-animation.html">
 <link rel="import" href="../bower_components/neon-animation/animations/fade-out-animation.html">
 
-<script src="../js/jquery-1.7.1.min.js"></script>
-<script src="https://api.trello.com/1/client.js?key=[AppKey]"></script>
+<!-- <script src="../js/jquery-1.7.1.min.js"></script>
+<script src="https://api.trello.com/1/client.js?key=[AppKey]"></script> -->
 
 <link rel="import" href="trello-cards.html">
 
@@ -25,9 +25,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <style>
     :host {
-      font-family: 'Muli', 'Helvetica Neue', helvetica, arial;
+      font-family: 'Cambria', 'Calibri';
       display: block;
     }
+      @font-face {
+	   font-family: 'bebas';
+	   src: url('../styles/BebasNeue.otf');
+	}
      paper-button {
       background: #00CC66;
       color: white;
@@ -50,6 +54,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     .blueText {
     	color: blue;
+    	font-family: 'bebas';
     }
     .size26 {
       font-size: 26px;
@@ -57,13 +62,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .size19 {
       font-size: 19px;
     }
+    .size14 {
+      font-size: 14px;
+    }
+    .size11 {
+      font-size: 11px;
+    }
     .bold {
       font-weight: bold;
     }
+    .underlined {
+    	text-decoration: underline;
+    }
   </style>
 
-  <template>
-  <paper-dialog id="dialog" class="dialog" modal entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+  <template id="tmpl">
+  <!-- <paper-dialog id="dialog" class="dialog" modal entry-animation="scale-up-animation" exit-animation="fade-out-animation">
     <div sizingTarget>
     <div class="centered size26"><span>Bem-vindo ao</span><span class="blueText"> RelaTrello</span></div>
     <br>
@@ -77,26 +91,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		</div>
     </paper-item>
     <paper-item> <div class="size19">3. Relatório pronto?? Copie e cole onde desejar</div></paper-item>
-    <paper-item><div class="size19">4. Retorne seu quadro para particular</div></paper-item>
+    <paper-item><div class="size19">4. Retorne seu quadro para particular</div></paper-item> -->
 
     <!-- <paper-button on-tap="authenticateUser">authenticate</paper-button> -->
-    </div>
+    <!-- </div>
     <div class="button-dialog">
-    <paper-button dialog-confirm>Ok</paper-button>
+    <paper-button dialog-confirm on-click="changeIndex">Ok</paper-button>
   </div>
-  </paper-dialog> 
+  </paper-dialog>  -->
 	<div class="title_container">
-		<span class="blueText size26">RelaTrello</span>
+		<span class="blueText size14">RelaTrello</span>
 	</div>
+	<!-- <paper-button on-tap="casca">CASCA</paper-button> -->
 
-    <iron-ajax url="{{quadroURL}}" last-response="{{threads}}" auto></iron-ajax>
+    <!-- <iron-ajax url="{{quadroURL}}" last-response="{{threads}}" auto></iron-ajax> -->
+    <iron-ajax url="https://trello.com/b/okOTMvJF/proj-matrix-vt-interface-web-de-dp-thiago-e-victor.json" last-response="{{threads}}" auto></iron-ajax>
 
-    <h1 class="centered">{{threads.name}}</h1>
+    <div class="centered size26 bold">Projeto Matrix-UG – Itaipu</div>
+    <br>
+    <div class="centered size19 bold">{{threads.name}}</div>
+    <br>
 
-    <template is="dom-repeat" items="{{threads.lists}}" filter="{{_filter()}}">
+    <template id="listRepeat" is="dom-repeat" items="{{threads.lists}}" filter="{{_filter()}}">
 
-      <h1 class="centered">{{item.name}}</h1>
-
+      <span class="size14 bold">{{index}}</span><span class="size14 bold">. </span><span class="size14 bold underlined">{{item.name}}</span>
+		
       <trello-cards cards="{{threads.cards}}" checklists="{{threads.checklists}}" comments="{{threads.actions}}" list="{{item.id}}"></trello-cards>
 
     </template>
@@ -118,24 +137,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       ready: function() {
-        var dialog = document.querySelector('#dialog');
-        dialog.open();
+        // var dialog = document.querySelector('#dialog');
+        // dialog.open();
       },
 
-      authenticateUser: function() {
-        var authenticationSuccess = function() { console.log("Successful authentication"); };
-        var authenticationFailure = function() { console.log("Failed authentication"); };
-
-          Trello.authorize({
-          type: "popup",
-          name: "Getting Started Application",
-          scope: {
-            read: true,
-            write: true },
-          expiration: "never",
-          authenticationSuccess,
-          authenticationFailure
-        });
+      casca: function() {
+      	this.unshift('threads.lists', {
+	            nothing: "nothing",
+	          });
       },
 
       // Retorna somente as listas que não estão arquivadas
@@ -145,12 +154,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
       },
 
-        _handleInput: function(e) {
-        if (e.keyCode == 13) {
-          var dialog = document.querySelector('#dialog');
-          dialog.close();
-        }
-      }
+      //   _handleInput: function(e) {
+      //   if (e.keyCode == 13) {
+      //     var dialog = document.querySelector('#dialog');
+      //     dialog.close();
+      //   }
+      // }
 
     });
   </script>

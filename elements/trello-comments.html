@@ -14,17 +14,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <style>
     :host {
-      font-family: 'Muli', 'Helvetica Neue', helvetica, arial;
+      font-family: 'Cambria', 'Calibri';
       display: block;
+    }
+    .size11 {
+      font-size: 11px;
+    }
+    .foot {
+      margin-bottom: 10px;
     }
   </style>
 
   <template>
-
-    <template is="dom-repeat" items="{{comments}}" filter="{{_filter(typeOfAction,card)}}">
-      <div>{{item.data.text}}</div>
-    </template>
-
+      <template is="dom-repeat" items="{{comments}}" filter="{{_filter(typeOfAction,card)}}">
+        <div class="size11 foot">{{item.data.text}}</div>
+      </template>
   </template>
 
   <script>

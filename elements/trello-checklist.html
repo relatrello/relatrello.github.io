@@ -13,23 +13,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <style>
     :host {
-      font-family: 'Muli', 'Helvetica Neue', helvetica, arial;
+      font-family: 'Cambria', 'Calibri';
       display: block;
+    }
+    .size11 {
+      font-size: 11px;
     }
   </style>
 
   <template>
 
     <template is="dom-repeat" items="{{checklists}}" filter="{{_filter(card)}}">
-      <h4>{{item.name}}</h4>
-        <ul>
+      <div class="size11">{{item.name}}</div>
          <template is="dom-repeat" items="{{item.checkItems}}">
-           <li>
-           <span>{{item.name}}</span><span> : </span>
-           <span>{{item.state}}</span>
-           </li>
+         <div>
+           <span class="size11">- </span><span class="size11">{{item.name}}</span><span class="size11"> : </span>
+           <span class="size11">{{item.state}}</span>
+         </div>
          </template>
-        </ul>
 
     </template>
 

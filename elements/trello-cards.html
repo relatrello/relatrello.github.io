@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <style>
     :host {
-      font-family: 'Muli', 'Helvetica Neue', helvetica, arial;
+      font-family: 'Cambria', 'Calibri';
       display: block;
     }
     .pic {
@@ -28,6 +28,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       @apply(--layout-horizontal);
       @apply(--layout-wrap);
       margin-bottom: 10px;
+    }
+    .size14 {
+      font-size: 14px;
+    }
+    .size11 {
+      font-size: 11px;
+    }
+    .bold {
+      font-weight: bold;
     }
     .red {
       padding: 2px;
@@ -132,9 +141,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
 
   <template>
-
+<ul>
     <template is="dom-repeat" items="{{cards}}" filter="{{_filter(list)}}">
-      <h2>{{item.name}}</h2>
+    <li>
+      <div class="size11">{{item.name}}</div>
+    </li>
         <div class="container">
           <template is="dom-repeat" items="{{item.labels}}">
             <div class$="{{item.color}}">{{item.name}}</div>
@@ -146,22 +157,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
       </div>
 
-      <h3>{{item.desc}}</h3>
+      <div class="size11">{{item.desc}}</div class="size11">
 
       <template is="dom-if" if="{{item.due}}">
-        <span>Data de entrega: </span><span>{{item.due}}</span>
+        <span class="size11">Data de entrega: </span><span class="size11">{{item.due}}</span>
       </template>
 
       <trello-checklist checklists="{{checklists}}" card="{{item.id}}"></trello-checklist>
 
       <template is="dom-if" if="{{item.badges.comments}}">
-       	<h4>Comentários</h4>
+       	<div class="size11">Comentários</div class="size11">
     	</template>
 
       <trello-comments comments="{{comments}}" card="{{item.id}}"></trello-comments>
-      <br>
     </template>
-
+</ul>
   </template>
 
   <script>
