@@ -47,7 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     .button-dialog {
     	margin-top: -2px;
-    	margin-left: 40%;
+    	margin-left: 34%;
     }
     .dialog {
     	width: 900px;
@@ -83,7 +83,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <br>
     <paper-item><span class="size19">1. Certifique-se de que o seu quadro está como: </span><span></span><span class="size19 bold"> PÚBLICO</span></paper-item>
     <paper-item>
-    	<div class="size19">2. Insira abaixo a URL do seu quadro e adicione .json ao final</div>
+    	<div class="size19">2. Insira abaixo a URL do seu quadro</div>
     </paper-item>
     <paper-item>
 	    <div class="input_container">
@@ -95,7 +95,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </div>
     <div class="button-dialog">
-    <paper-button dialog-confirm on-click="changeIndex">Ok</paper-button>
+    <paper-button dialog-confirm on-click="closeDialog">Gerar Relatório</paper-button>
   </div>
   </paper-dialog> 
 	<div class="title_container">
@@ -103,7 +103,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	</div>
 	<!-- <paper-button on-tap="casca">CASCA</paper-button> -->
 
-    <iron-ajax url="{{quadroURL}}" last-response="{{threads}}" auto></iron-ajax>
+    <iron-ajax url="{{jsonURL}}" last-response="{{threads}}" auto></iron-ajax>
     <!-- <iron-ajax url="https://trello.com/b/okOTMvJF/proj-matrix-vt-interface-web-de-dp-thiago-e-victor.json" last-response="{{threads}}" auto></iron-ajax> -->
 
     <div class="centered size26 bold">Projeto Matrix-UG – Itaipu</div>
@@ -130,7 +130,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       	quadroURL: {
           type: String,
-          notify: true
+          notify: true,
+        },
+
+        jsonURL: {
+        	type: String
         }
 
       },
@@ -157,8 +161,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (e.keyCode == 13) {
           var dialog = document.querySelector('#dialog');
           dialog.close();
+
+          this.jsonURL = this.quadroURL+".json";
         }
-      }
+      },
+
+      	closeDialog: function() {
+      	  var dialog = document.querySelector('#dialog');
+          dialog.close();
+
+          this.jsonURL = this.quadroURL+".json";
+      	}
 
     });
   </script>
