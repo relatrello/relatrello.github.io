@@ -77,38 +77,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
 
   <template id="tmpl">
-  <paper-dialog id="dialog" class="dialog" modal entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-    <div sizingTarget>
-    <div class="centered size26"><span>Bem-vindo ao</span><span class="blueText"> RelaTrello</span></div>
-    <br>
-    <paper-item><span class="size19">1. Certifique-se de que o seu quadro está como: </span><span></span><span class="size19 bold"> PÚBLICO</span></paper-item>
-    <paper-item>
-    	<div class="size19">2. Insira abaixo a URL do seu quadro</div>
-    </paper-item>
-    <paper-item>
-	    <div class="input_container">
-			<paper-input label="MeuQuadroURL.json" on-keyup="_handleInput" value="{{quadroURL}}"></paper-input>
-		</div>
-    </paper-item>
-    <paper-item> <div class="size19">3. Relatório pronto?? Copie e cole onde desejar</div></paper-item>
-    <paper-item><div class="size19">4. Retorne seu quadro para particular</div></paper-item>
-
-    </div>
-    <div class="button-dialog">
-    <paper-button dialog-confirm on-click="closeDialog">Gerar Relatório</paper-button>
-  </div>
-  </paper-dialog> 
-	<div class="title_container">
+  	<div class="title_container">
 		<span class="blueText size14">RelaTrello</span>
 	</div>
 	<!-- <paper-button on-tap="casca">CASCA</paper-button> -->
 
-    <iron-ajax url="{{jsonURL}}" last-response="{{threads}}" auto></iron-ajax>
+    <iron-ajax url="{{url}}" last-response="{{threads}}" auto></iron-ajax>
     <!-- <iron-ajax url="https://trello.com/b/okOTMvJF/proj-matrix-vt-interface-web-de-dp-thiago-e-victor.json" last-response="{{threads}}" auto></iron-ajax> -->
 
-    <div class="centered size26 bold">Projeto Matrix-UG – Itaipu</div>
-    <br>
-    <div class="centered size19 bold">{{threads.name}}</div>
+    <!-- <div class="centered size26 bold">Projeto Matrix-UG – Itaipu</div>
+    <br> -->
+    <div class="centered size26 bold">{{threads.name}}</div>
     <br>
 
     <template id="listRepeat" is="dom-repeat" items="{{threads.lists}}" filter="{{_filter()}}">
@@ -128,26 +107,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       properties: {
 
-      	quadroURL: {
-          type: String,
-          notify: true,
-        },
-
-        jsonURL: {
+        url: {
         	type: String
         }
 
-      },
-
-      ready: function() {
-        var dialog = document.querySelector('#dialog');
-        dialog.open();
-      },
-
-      casca: function() {
-      	this.unshift('threads.lists', {
-	            nothing: "nothing",
-	          });
       },
 
       // Retorna somente as listas que não estão arquivadas
@@ -156,22 +119,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return (!person.closed);
         };
       },
-
-        _handleInput: function(e) {
-        if (e.keyCode == 13) {
-          var dialog = document.querySelector('#dialog');
-          dialog.close();
-
-          this.jsonURL = this.quadroURL+".json";
-        }
-      },
-
-      	closeDialog: function() {
-      	  var dialog = document.querySelector('#dialog');
-          dialog.close();
-
-          this.jsonURL = this.quadroURL+".json";
-      	}
 
     });
   </script>

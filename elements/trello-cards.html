@@ -42,101 +42,102 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       padding: 2px;
       display: inline-block;
       min-width: 50px;
-      height:  20px;
       border-radius:  4px;
       background-color:   red;
       margin-left: 2px;
       margin-right: 2px;
+      text-align: center;
     }
     .green {
       padding: 2px;
       display: inline-block;
       min-width: 50px;
-      height:  20px;
       border-radius:  4px;
       background-color:   green;
       margin-left: 2px;
       margin-right: 2px;
+      text-align: center;
     }
     .yellow {
       padding: 2px;
       display: inline-block;
       min-width: 50px;
-      height:  20px;
       border-radius:  4px;
       background-color:   yellow;
       margin-left: 2px;
       margin-right: 2px;
+      text-align: center;
     }
     .orange {
       padding: 2px;
       display: inline-block;
       min-width: 50px;
-      height:  20px;
       border-radius:  4px;
       background-color:   orange;
       margin-left: 2px;
       margin-right: 2px;
+      text-align: center;
     }
     .purple {
       padding: 2px;
       display: inline-block;
       min-width: 50px;
-      height:  20px;
       border-radius:  4px;
       background-color:   purple;
       margin-left: 2px;
       margin-right: 2px;
+      text-align: center;
     }
     .blue {
       padding: 2px;
       display: inline-block;
       min-width: 50px;
-      height:  20px;
       border-radius:  4px;
       background-color:   blue;
       margin-left: 2px;
       margin-right: 2px;
+      text-align: center;
     }
     .lime {
       padding: 2px;
       display: inline-block;
       min-width: 50px;
-      height:  20px;
       border-radius:  4px;
       background-color:   lime;
       margin-left: 2px;
       margin-right: 2px;
+      text-align: center;
     }
     .pink {
       padding: 2px;
       display: inline-block;
       min-width: 50px;
-      height:  20px;
       border-radius:  4px;
       background-color:   pink;
       margin-left: 2px;
       margin-right: 2px;
+      text-align: center;
     }
     .black {
       padding: 2px;
       display: inline-block;
       min-width: 50px;
-      height:  20px;
       border-radius:  4px;
       background-color:   black;
       margin-left: 2px;
       margin-right: 2px;
+      text-align: center;
+      color: white;
     }
     .sky {
       padding: 2px;
       display: inline-block;
       min-width: 50px;
-      height:  20px;
       border-radius:  4px;
       background-color:   lightblue;
       margin-left: 2px;
       margin-right: 2px;
+      text-align: center;
     }
   </style>
 
@@ -146,30 +147,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <li>
       <div class="size11">{{item.name}}</div>
     </li>
-        <!-- <div class="container">
-          <template is="dom-repeat" items="{{item.labels}}">
-            <div class$="{{item.color}}">{{item.name}}</div>
-          </template>
-        </div> -->
+      <template is="dom-if" if="{{labelsCheck}}">
+          <div class="container">
+            <template is="dom-repeat" items="{{item.labels}}">
+              <div class$="{{item.color}}" style="font-size: 11px;">{{item.name}}</div>
+            </template>
+          </div>
+      </template>
       <div>
-      <template is="dom-repeat" items="{{item.attachments}}">
-        <img class="pic" src="{{item.url}}">
-      </template>
+        <template is="dom-if" if="{{attCheck}}">
+            <template is="dom-repeat" items="{{item.attachments}}">
+              <img class="pic" src="{{item.url}}">
+            </template>
+        </template>
       </div>
-
-      <div class="size11">{{item.desc}}</div class="size11">
-
-      <template is="dom-if" if="{{item.due}}">
-        <span class="size11">Data de entrega: </span><span class="size11">{{item.due}}</span>
+      
+      <template is="dom-if" if="{{descCheck}}">
+        <div class="size11">{{item.desc}}</div class="size11">
+      </template>
+      
+      
+      <template is="dom-if" if="{{dateCheck}}">
+        <template is="dom-if" if="{{item.due}}">
+          <span class="size11">Data de entrega: </span><span class="size11">{{item.due}}</span>
+        </template>
+      </template>
+      
+      <template is="dom-if" if="{{checklistsCheck}}">
+        <trello-checklist checklists="{{checklists}}" card="{{item.id}}"></trello-checklist>
       </template>
 
-      <trello-checklist checklists="{{checklists}}" card="{{item.id}}"></trello-checklist>
-
-      <template is="dom-if" if="{{item.badges.comments}}">
-       	<div class="size11">Comentários</div class="size11">
-    	</template>
-
-      <trello-comments comments="{{comments}}" card="{{item.id}}"></trello-comments>
+      <template is="dom-if" if="{{commentsCheck}}">
+        <template is="dom-if" if="{{item.badges.comments}}">
+         	<div class="size11">Comentários</div class="size11">
+      	</template>
+      
+        <trello-comments comments="{{comments}}" card="{{item.id}}"></trello-comments>
+      </template>
+      
     </template>
 </ul>
   </template>
@@ -190,6 +205,47 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Array
        },
         list: {},
+
+        labelsCheck: {
+          value: function() {
+            var labelsCheck =  document.querySelector('#labelsCheck').checked;
+              return labelsCheck;
+          }
+        },
+
+        commentsCheck: {
+          value: function() {
+            var commentsCheck =  document.querySelector('#commentsCheck').checked;
+              return commentsCheck;
+          }
+        },
+
+        dateCheck: {
+          value: function() {
+            var dateCheck =  document.querySelector('#dateCheck').checked;
+              return dateCheck;
+          }
+        },
+
+        descCheck: {
+          value: function() {
+            var descCheck =  document.querySelector('#descCheck').checked;
+              return descCheck;
+          }
+        },
+        attCheck: {
+          value: function() {
+            var attCheck =  document.querySelector('#attCheck').checked;
+              return attCheck;
+          }
+        },
+
+         checklistsCheck: {
+          value: function() {
+            var checklistsCheck =  document.querySelector('#checklistsCheck').checked;
+              return checklistsCheck;
+          }
+        },
       },
 
       // Retorna somente as listas que não estão arquivadas 

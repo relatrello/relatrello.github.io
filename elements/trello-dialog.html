@@ -1,0 +1,173 @@
+<!--
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+ <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+ <link rel="import" href="../bower_components/paper-button/paper-button.html">
+ <link rel="import" href="../bower_components/paper-item/paper-item.html">
+ <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+ <link rel="import" href="../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../bower_components/neon-animation/animations/fade-out-animation.html">
+
+<link rel="import" href="trello-board.html">
+
+<!-- <script src="../js/jquery-1.7.1.min.js"></script>
+<script src="https://api.trello.com/1/client.js?key=[AppKey]"></script> -->
+
+<dom-module id="trello-dialog">
+
+  <style>
+    :host {
+      font-family: 'Cambria', 'Calibri';
+      display: block;
+
+      --paper-checkbox-unchecked-color: blue;
+      --paper-checkbox-checked-color: blue;
+    }
+      @font-face {
+	   font-family: 'bebas';
+	   src: url('../styles/BebasNeue.otf');
+	}
+     paper-button {
+      background: #00CC66;
+      color: white;
+    }
+    .input_container {
+    	width: 100%;
+    	margin-top: -20px;
+    }
+    .title_container {
+    	width: 70%;
+    	margin-left: 30px;
+    	margin-top: 20px;
+    }
+    .button-dialog {
+    	margin-left: 38%;
+    }
+    .dialog {
+    	width: 900px;
+    }
+    .blueText {
+    	color: blue;
+    	font-family: 'bebas';
+    }
+    .size26 {
+      font-size: 26px;
+    }
+    .size19 {
+      font-size: 19px;
+    }
+    .size14 {
+      font-size: 14px;
+    }
+    .size11 {
+      font-size: 11px;
+    }
+    .bold {
+      font-weight: bold;
+    }
+    .underlined {
+    	text-decoration: underline;
+    }
+    .centered {
+      text-align: center;
+    }
+  </style>
+
+  <template id="tmpl">
+
+  <paper-dialog id="dialog" class="dialog" modal noCancelOnEscKey entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+    <div sizingTarget>
+    <div class="centered size26"><span>Bem-vindo ao</span><span>  </span><span class="blueText"> RelaTrello</span></div>
+    <br>
+    <paper-item>
+    	<span class="size19">1. Certifique-se de que o seu quadro está como: </span><span></span><span class="size19 bold"> PÚBLICO</span>
+    </paper-item>
+    <paper-item>
+    	<div class="size19">2. Selecione o que deseja gerar no relatório</div>
+    </paper-item>
+    <paper-item style="margin-left: -12px;">
+    	<paper-checkbox id="listsCheck" checked style="margin-right: 17px;">Listas</paper-checkbox>
+    	<paper-checkbox id="cardsCheck" checked>Cartões</paper-checkbox>
+    	<paper-checkbox id="dateCheck">Data</paper-checkbox>
+    	<paper-checkbox id="descCheck">Descrição</paper-checkbox>
+    	<paper-checkbox id="commentsCheck">Comentários</paper-checkbox>
+    	<paper-checkbox id="checklistsCheck">Checklists</paper-checkbox>
+    	<paper-checkbox id="attCheck">Anexos</paper-checkbox>
+    	<paper-checkbox id="labelsCheck">Etiquetas</paper-checkbox>
+    </paper-item>
+    <paper-item>
+    	<div class="size19">3. Insira abaixo a URL do seu quadro</div>
+    </paper-item>
+    <paper-item>
+	    <div class="input_container">
+			<paper-input label="MeuQuadroURL" on-keyup="_handleInput" bind-value="{{quadroURL}}"></paper-input>
+		</div>
+    </paper-item>
+    <!-- <paper-item> <div class="size19">3. Relatório pronto?? Copie e cole onde desejar</div></paper-item>
+    <paper-item><div class="size19">4. Retorne seu quadro para particular</div></paper-item> -->
+
+    </div>
+    <div class="button-dialog">
+    <paper-button dialog-confirm on-click="closeDialog">Gerar Relatório</paper-button>
+  </div>
+  </paper-dialog> 
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'trello-dialog',
+
+      properties: {
+
+      	quadroURL: {
+          type: String,
+          notify: true,
+        },
+      },
+
+      ready: function() {
+        var dialog = document.querySelector('#dialog');
+        dialog.open();
+      },
+
+      // casca: function() {
+      // 	this.unshift('threads.lists', {
+	     //        nothing: "nothing",
+	     //      });
+      // },
+
+        _handleInput: function(e) {
+        if (e.keyCode == 13) {
+          var dialog = document.querySelector('#dialog');
+          dialog.close();
+
+          var trelloBoard = document.createElement('trello-board');
+	          trelloBoard.url = this.quadroURL+".json";
+	          document.body.appendChild(trelloBoard);
+        }
+      },
+
+      	closeDialog: function() {
+      	  var dialog = document.querySelector('#dialog');
+          dialog.close();
+
+          var trelloBoard = document.createElement('trello-board');
+              trelloBoard.url = this.quadroURL+".json";
+              document.body.appendChild(trelloBoard);
+      	}
+
+    });
+  </script>
+
+</dom-module>
