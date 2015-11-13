@@ -21,6 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="trello-cards.html">
 
+
 <dom-module id="trello-board">
 
   <style>
@@ -91,8 +92,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <br>
 
     <template id="listRepeat" is="dom-repeat" items="{{threads.lists}}" filter="{{_filter()}}">
-
-      <span class="size14 bold">{{index}}</span><span class="size14 bold">. </span><span class="size14 bold underlined">{{item.name}}</span>
+		
+      <!-- <span class="size14 bold">{{index}}</span><span class="size14 bold">. </span> --><span class="size14 bold underlined">{{item.name}}</span>
 		
       <trello-cards cards="{{threads.cards}}" checklists="{{threads.checklists}}" comments="{{threads.actions}}" list="{{item.id}}"></trello-cards>
 
