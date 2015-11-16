@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
  <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
  <link rel="import" href="../bower_components/paper-button/paper-button.html">
@@ -39,6 +40,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      paper-button {
       background: #00CC66;
       color: white;
+    }
+    .container {
+      @apply(--layout-horizontal);
+    }
+    .flexchild {
+      @apply(--layout-flex);
     }
     .input_container {
     	width: 100%;
@@ -94,15 +101,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-item>
     	<div class="size19">2. Selecione o que deseja gerar no relatório</div>
     </paper-item>
-    <paper-item style="margin-left: -12px;">
-    	<paper-checkbox id="listsCheck" checked disabled style="margin-right: 17px;">Listas</paper-checkbox>
-    	<paper-checkbox id="cardsCheck" checked disabled>Cartões</paper-checkbox>
-    	<paper-checkbox id="dateCheck">Data</paper-checkbox>
-    	<paper-checkbox id="descCheck">Descrição</paper-checkbox>
-    	<paper-checkbox id="commentsCheck">Comentários</paper-checkbox>
-    	<paper-checkbox id="checklistsCheck">Checklists</paper-checkbox>
-    	<paper-checkbox id="attCheck">Anexos</paper-checkbox>
-    	<paper-checkbox id="labelsCheck">Etiquetas</paper-checkbox>
+    <paper-item class="container" style="margin-left: 5%;">
+    	<paper-checkbox id="listsCheck" class="flexchild" checked disabled style="margin-right: 17px;">Listas</paper-checkbox>
+    	<paper-checkbox id="cardsCheck" class="flexchild" checked disabled>Cartões</paper-checkbox>
+    	<paper-checkbox id="dateCheck" class="flexchild">Data</paper-checkbox>
+    	<paper-checkbox id="descCheck" class="flexchild">Descrição</paper-checkbox>
+    </paper-item>
+    <paper-item class="container" style="margin-left: 5%;">
+    	<paper-checkbox id="commentsCheck" class="flexchild" style="margin-right: 17px;">Comentários</paper-checkbox>
+    	<paper-checkbox id="checklistsCheck" class="flexchild">Checklists</paper-checkbox>
+    	<paper-checkbox id="attCheck" class="flexchild">Anexos</paper-checkbox>
+    	<paper-checkbox id="labelsCheck" class="flexchild">Etiquetas</paper-checkbox>
     </paper-item>
     <paper-item>
     	<div class="size19">3. Insira abaixo a URL do seu quadro</div>
@@ -140,12 +149,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var dialog = document.querySelector('#dialog');
         dialog.open();
       },
-
-      // casca: function() {
-      // 	this.unshift('threads.lists', {
-	     //        nothing: "nothing",
-	     //      });
-      // },
 
         _handleInput: function(e) {
         if (e.keyCode == 13) {
