@@ -21,7 +21,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="trello-cards.html">
 
-
 <dom-module id="trello-board">
 
   <style>
@@ -81,19 +80,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   	<div class="title_container">
 		<span class="blueText size14">RelaTrello</span>
 	</div>
-	<!-- <paper-button on-tap="casca">CASCA</paper-button> -->
 
     <iron-ajax url="{{url}}" last-response="{{threads}}" auto></iron-ajax>
-    <!-- <iron-ajax url="https://trello.com/b/okOTMvJF/proj-matrix-vt-interface-web-de-dp-thiago-e-victor.json" last-response="{{threads}}" auto></iron-ajax> -->
+    <!-- <iron-ajax url="https://trello.com/b/vnMMnuRa/tv-projeto-final-analise-dinamica-de-um-turbogerador.json" last-response="{{threads}}" auto></iron-ajax> -->
 
-    <!-- <div class="centered size26 bold">Projeto Matrix-UG – Itaipu</div>
-    <br> -->
     <div class="centered size26 bold">{{threads.name}}</div>
     <br>
 
     <template id="listRepeat" is="dom-repeat" items="{{threads.lists}}" filter="{{_filter()}}">
-		
-      <!-- <span class="size14 bold">{{index}}</span><span class="size14 bold">. </span> --><span class="size14 bold underlined">{{item.name}}</span>
+      
+      <span class="size14 bold">{{displayIndex(index)}}</span><span class="size14 bold">. </span><span class="size14 bold underlined">{{item.name}}</span>
 		
       <trello-cards cards="{{threads.cards}}" checklists="{{threads.checklists}}" comments="{{threads.actions}}" list="{{item.id}}"></trello-cards>
 
@@ -113,6 +109,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
       },
+
+      displayIndex: function(index) {
+                return index + 1;
+            },
 
       // Retorna somente as listas que não estão arquivadas
        _filter: function() {  

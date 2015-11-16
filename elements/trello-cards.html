@@ -13,6 +13,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="trello-checklist.html">
 <link rel="import" href="trello-comments.html">
 
+<script src="../components/time-elements/time-elements.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.5.4/CustomElements.min.js"></script>
+
 <dom-module id="trello-cards">
 
   <style>
@@ -169,7 +172,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       
       <template is="dom-if" if="{{dateCheck}}">
         <template is="dom-if" if="{{item.due}}">
-          <span class="size11">Data de entrega: </span><span class="size11">{{item.due}}</span>
+          <!-- <span class="size11">Data de entrega: </span> --><span class="size11">{{displayDate(item.due)}}</span>
         </template>
       </template>
       
@@ -246,6 +249,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               return checklistsCheck;
           }
         },
+      },
+
+      displayDate: function(date) {
+       var arr = date.split('');
+        arr.splice(10, 14);
+       var word = [];
+       word.push(arr[8]);
+       word.push(arr[9]);
+       word.push('/');
+       word.push(arr[5]);
+       word.push(arr[6]);
+       word.push('/');
+       word.push(arr[0]);
+       word.push(arr[1]);
+       word.push(arr[2]);
+       word.push(arr[3]);
+       word = word.join('');
+        return word;
       },
 
       // Retorna somente as listas que não estão arquivadas 
