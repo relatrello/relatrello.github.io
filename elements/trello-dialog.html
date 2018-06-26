@@ -15,8 +15,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  <link rel="import" href="../bower_components/paper-button/paper-button.html">
  <link rel="import" href="../bower_components/paper-item/paper-item.html">
  <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
- <link rel="import" href="../bower_components/neon-animation/animations/scale-up-animation.html">
-<link rel="import" href="../bower_components/neon-animation/animations/fade-out-animation.html">
+ <!-- <link rel="import" href="../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../bower_components/neon-animation/animations/fade-out-animation.html"> -->
 
 <link rel="import" href="trello-board.html">
 
@@ -61,6 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     .dialog {
     	width: 900px;
+      
     }
     .blueText {
     	color: blue;
@@ -91,7 +92,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <template id="tmpl">
 
-  <paper-dialog id="dialog" class="dialog" modal noCancelOnEscKey entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+  <paper-dialog id="dialog" class="dialog" modal noCancelOnEscKey>
     <div sizingTarget>
     <div class="centered size26"><span>Bem-vindo ao</span><span>  </span><span class="blueText"> RelaTrello</span></div>
     <br>
@@ -147,7 +148,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready: function() {
         var dialog = document.querySelector('#dialog');
-        dialog.open();
+        setTimeout(() => {
+          dialog.open();
+        }, 600)
       },
 
         _handleInput: function(e) {
