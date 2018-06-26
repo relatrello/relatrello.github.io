@@ -8,9 +8,9 @@
     "webcomponentsjs": "Polymer/webcomponentsjs#^0.7.12",
     "polymer": "Polymer/polymer#^1.1.2",
     "iron-ajax": "PolymerElements/iron-ajax#^1.0.0",
-    "paper-dialog": "PolymerElements/paper-dialog#~1.0.2",
-    "neon-animation": "PolymerElements/neon-animation#~1.0.7",
-    "paper-input": "PolymerElements/paper-input#~1.0.18",
-    "paper-item": "PolymerElements/paper-item#~1.0.6"
+    "paper-dialog": "PolymerElements/paper-dialog#^1.0.2",
+    "neon-animation": "PolymerElements/neon-animation#^1.0.7",
+    "paper-input": "PolymerElements/paper-input#^1.0.18",
+    "paper-item": "PolymerElements/paper-item#^1.0.6"
   }
 }
